@@ -42,11 +42,20 @@ public class Magpie
         {
             response = "Tell me more about your family.";
         }
-        else if (statement.indexOf("dog") >= 0 || statement.indexOf("cat") >= 0){
+        else if (findWord(statement,"dog") >= 0 || findWord(statement,"cat") >= 0){
             response = "Tell me more about your pets.";
         }
-        else if (statement.indexOf("Nathan") >= 0){
+        else if (findWord(statement,"Nathan") >= 0){
             response = "He sounds like a good teacher.";
+        }
+        else if (findWord(statement,"baseball") >= 0 || findWord(statement,"basketball") >=0){
+            response = "I like sports too.";
+        }
+        else if (findWord(statement,"school") >= 0){
+            response = "What's your favorite subject in school?";
+        }
+        else if (findWord(statement,"fun") >= 0){
+            response = "What do you like to do in your free time?";
         }
         else
         {
@@ -61,7 +70,7 @@ public class Magpie
      */
     public String getRandomResponse()
     {
-        final int NUMBER_OF_RESPONSES = 4;
+        final int NUMBER_OF_RESPONSES = 6;
         double r = Math.random();
         int whichResponse = (int)(r * NUMBER_OF_RESPONSES);
         String response = "";
@@ -82,6 +91,14 @@ public class Magpie
         {
             response = "You don't say.";
         }
+        else if (whichResponse == 4)
+        {
+            response = "Wow.";
+        }
+        else if (whichResponse == 5)
+        {
+            response = "Nice.";
+        }
     
         return response;
     }
@@ -96,6 +113,24 @@ public class Magpie
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
     public int findWord(String str, String word) {
+        String input = str.trim().toLowerCase();
+        int pos = 0;
+        while (pos >= 0){
+            pos = input.indexOf(word.toLowerCase(), pos + 1);
+            System.out.println(pos);
+            if (pos == 0 && (input.charAt(pos + word.length()) >= 97 && input.charAt(pos + word.length()) <= 122)){
+                continue;
+            }
+            else if (pos == input.length() - 1 && (input.charAt(pos - 1) >= 97 && input.charAt(pos - 1) <= 122)){
+                continue;
+            }
+            else if (pos > 0 && pos < input.length() - 1 && (input.charAt(pos + word.length()) >= 97 && input.charAt(pos + word.length()) <= 122) && (input.charAt(pos - 1) >= 97 && input.charAt(pos - 1) <= 122)){
+                continue;
+            }
+            else {
+                return pos;
+            }
+        }
         return -1;
     }
 

@@ -16,14 +16,21 @@ public class MagpieRunner
     	
     	System.out.println (maggie.getGreeting());
     	Scanner in = new Scanner (System.in);
-    	String statement = in.nextLine();
+    	String statement = "";
     	
     	while (!statement.equals("Bye"))
     	{
+            while (true){
+                statement = in.nextLine();
+                if (statement.trim().length() == 0){
+                    System.out.println("Say something, please.");
+                }
+                else {
+                    break;
+                }
+            }
     		System.out.println (maggie.getResponse(statement));
-    		statement = in.nextLine();
         }
-        
         in.close();
     }
 }
