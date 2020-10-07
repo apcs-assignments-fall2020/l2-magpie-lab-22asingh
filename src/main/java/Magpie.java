@@ -113,25 +113,33 @@ public class Magpie
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
     public int findWord(String str, String word) {
-        String input = str.trim().toLowerCase();
-        int pos = 0;
-        while (pos >= 0){
-            pos = input.indexOf(word.toLowerCase(), pos + 1);
-            System.out.println(pos);
-            if (pos == 0 && (input.charAt(pos + word.length()) >= 97 && input.charAt(pos + word.length()) <= 122)){
-                continue;
-            }
-            else if (pos == input.length() - 1 && (input.charAt(pos - 1) >= 97 && input.charAt(pos - 1) <= 122)){
-                continue;
-            }
-            else if (pos > 0 && pos < input.length() - 1 && (input.charAt(pos + word.length()) >= 97 && input.charAt(pos + word.length()) <= 122) && (input.charAt(pos - 1) >= 97 && input.charAt(pos - 1) <= 122)){
-                continue;
+        str = str.toLowerCase();
+        word = word.toLowerCase();
+        char before;
+        char after;
+        if (str.indexOf(word) == -1){
+            return -1;
+        }
+        else {
+            if (str.indexOf(word) > 0){
+                before = str.charAt(str.indexOf(word) - 1);
             }
             else {
-                return pos;
+                before = ' ';
+            }
+            if (str.indexOf(word) + word.length() < str.length()){
+                after = str.charAt(str.indexOf(word) + word.length());
+            }
+            else {
+                after = ' ';
+            }
+            if (before == ' ' && after == ' '){
+                return str.indexOf(word);
+            }
+            else {
+                return -1;
             }
         }
-        return -1;
     }
 
     
