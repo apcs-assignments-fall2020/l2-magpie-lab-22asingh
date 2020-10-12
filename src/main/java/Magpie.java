@@ -57,6 +57,18 @@ public class Magpie
         else if (findWord(statement,"fun") >= 0){
             response = "What do you like to do in your free time?";
         }
+        else if (findWord(statement, "I want") >= 0){
+            response = transformIWantStatement(statement);
+        }
+        else if (findWord(statement, "I want to") >= 0){
+            response = transformIWantToStatement(statement);
+        }
+        else if (findWord(statement, "I") >= 0 && findWord(statement, "You") >= 0){
+            response = transformIYouStatement(statement);
+        }
+        else if (findWord(statement, "You") >= 0 && findWord(statement, "Me") >= 0){
+            response = transformYouMeStatement(statement);
+        }
         else
         {
             response = getRandomResponse();
@@ -153,8 +165,8 @@ public class Magpie
      */
     public String transformIWantStatement(String statement)
     {
-        //your code here
-        return "";
+        int pos = findWord(statement, "I want");
+        return "Would you really be happy if you had " + statement.substring(pos + 7) + "?";
     }
 
     /**
@@ -165,8 +177,9 @@ public class Magpie
      */
     public String transformIYouStatement(String statement)
     {
-        //your code here
-        return "";
+        int posI = findWord(statement, "I");
+        int posU = findWord(statement, "you");
+        return "Why do you " + statement.substring(posI + 2, posU - 1) + " me?";
     }
 
     /**
@@ -177,8 +190,8 @@ public class Magpie
      */
     public String transformIWantToStatement(String statement)
     {
-        // your code here
-        return "";
+        int pos = findWord(statement, "I want to");
+        return "What would it mean to " + statement.substring(pos + 10) + "?";
     }
 
 
@@ -192,7 +205,8 @@ public class Magpie
      */
     public String transformYouMeStatement(String statement)
     {
-        // your code here
-        return "";
+        int posU = findWord(statement, "you");
+        int posMe = findWord(statement, "me");
+        return "What makes you think that I " + statement.substring(posU + 4, posMe - 1) + " you?";
     }
 }
